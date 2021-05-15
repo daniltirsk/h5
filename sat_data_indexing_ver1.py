@@ -51,6 +51,7 @@ def get_map(pth, time, field):
         f.create_group('maps')
     else:
         sites.remove('maps')
+    #если карта уже была построена ранее
     if str(timestamp) in f['maps']:
         map_indeces = f['maps'][str(timestamp)]
         for i in range(0,len(map_indeces),3):
@@ -63,6 +64,7 @@ def get_map(pth, time, field):
             result.append((data_match, lon, lat))
         return np.array(result)
     else:
+        #иначе строим как обычно
         for site in sites:
             lat = np.degrees(f[site].attrs['lat'])
             lon = np.degrees(f[site].attrs['lon'])
@@ -90,6 +92,7 @@ def get_map(pth, time, field):
     if not result:
         return None
     else:
+        #сохранаяем индексы в файл
         f['maps'].create_dataset(str(timestamp),data=map_indeces)
         return np.array(result)
         

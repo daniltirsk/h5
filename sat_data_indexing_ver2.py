@@ -55,8 +55,6 @@ def get_map(pth, time, field):
             
             timestamps = get_data(pth, site, sat, h, 'timestamp', fhdf=f)
 
-
-            
             match = np.where((timestamps >= start) & (timestamps <= end))
             data_match = data[match]
             for d in data_match:
@@ -92,6 +90,12 @@ if __name__ == '__main__':
         
 '''
 #кусок кода использованный для перезаписи файла 
+pth = '2020-05-201.h5'
+data = {}
+for i in range(24):
+    data[str(i)] = 0
+data2 = {}
+
 with h5py.File('n1.h5', 'w') as f2:
     with h5py.File(pth, 'r+') as f:
         sites = get_sites(pth)
